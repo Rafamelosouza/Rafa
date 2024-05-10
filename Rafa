@@ -1,0 +1,50 @@
+from iqoptionapi.stable_api import IQ_Option
+import numpy as np
+import time
+
+# Autenticação
+api = IQ_Option('email@example.com', 'password')
+api.connect()
+
+# Verificar conexão
+if not api.check_connect():
+    print('Falha na conexão')
+    exit()
+
+# Definir parâmetros
+asset = 'EURUSD'
+interval = 60  # intervalo de 1 minuto para candles
+
+# Obter candles
+candles = api.get_candles(asset, interval, 100, time.time())
+
+# Preparar dados
+close_prices = [candle['close'] for candle in candles]
+high_prices = [candle['max'] for candle in candles]
+low_prices = [candle['min'] for candle in candles]
+
+# Função para calcular Bandas de Bollinger
+def bollinger_bands(prices, window=20, width=2):
+    middle_band = np.mean(prices[-window:])
+    std_dev = np.std(prices[-window:])
+    upper_band = middle_band + (std_dev * width)
+    lower_band = middle_band - (std_dev * width)
+    return lower_band, middle_band, upper_band
+
+# Função para calcular ATR
+def average_true_range(high, low, close, window=14):
+    ranges = [high[i] - low[i] for i in range(window)]
+    tr = max(ranges)
+    atr = np.mean(ranges)
+    return atr
+
+# Calcular indicadores
+lower_band, middle_band, upper_band = bollinger_bands(close_prices)
+atr = average_true_range(high_prices, low_prices, close_prices)
+
+# Exibir resultados
+print(f'Bandas de Bollinger: Baixa={lower_band}, Média={middle_band}, Alta={upper_band}')
+print(f'ATR: {atr}')
+
+# Desconectar
+api.logout()
