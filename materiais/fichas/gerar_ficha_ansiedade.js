@@ -51,18 +51,18 @@ function scoreCell(width) {
   });
 }
 
-const ITEM_W = 6600;
-const SCORE_W = 780; // x4 = 3120, total 9720
+const ITEM_W = 6200;
+const SCORE_W = 880; // x4 = 3520, total 9720
 
 function domainTable(items) {
   const headerRow = new TableRow({
     tableHeader: true,
     children: [
       headerCell("Item", ITEM_W),
-      headerCell("Nunca\n(0)", SCORE_W),
-      headerCell("Às vezes\n(1)", SCORE_W),
-      headerCell("Muitas vezes\n(2)", SCORE_W),
-      headerCell("Sempre\n(3)", SCORE_W),
+      headerCell("0", SCORE_W),
+      headerCell("1", SCORE_W),
+      headerCell("2", SCORE_W),
+      headerCell("3", SCORE_W),
     ],
   });
   const rows = items.map(
@@ -78,8 +78,10 @@ function domainTable(items) {
   });
 }
 
-function domainHeading(title) {
+function domainHeading(title, pageBreakBefore) {
   return new Paragraph({
+    pageBreakBefore: !!pageBreakBefore,
+    keepNext: true,
     spacing: { before: 260, after: 100 },
     shading: { type: ShadingType.CLEAR, color: "auto", fill: COLOR_LIGHT },
     children: [new TextRun({ text: title, bold: true, size: 22, color: COLOR_PRIMARY })],
@@ -208,6 +210,39 @@ function bullet(text) {
   });
 }
 
+function reference(text) {
+  return new Paragraph({
+    spacing: { after: 120 },
+    indent: { left: 260, hanging: 260 },
+    children: [new TextRun({ text, size: 18, color: "4A4A4A" })],
+  });
+}
+
+const legendTable = new Table({
+  width: { size: 9720, type: WidthType.DXA },
+  columnWidths: [9720],
+  rows: [
+    new TableRow({
+      children: [
+        new TableCell({
+          width: { size: 9720, type: WidthType.DXA },
+          shading: { type: ShadingType.CLEAR, color: "auto", fill: COLOR_LIGHT },
+          borders: cellBorders(),
+          margins: { top: 90, bottom: 90, left: 150, right: 150 },
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({ text: "Legenda da escala   ", bold: true, size: 18, color: COLOR_PRIMARY }),
+                new TextRun({ text: "0 = Nunca    1 = Às vezes    2 = Muitas vezes    3 = Sempre", size: 18, color: COLOR_TEXT }),
+              ],
+            }),
+          ],
+        }),
+      ],
+    }),
+  ],
+});
+
 const observationsBox = new Table({
   width: { size: 9720, type: WidthType.DXA },
   columnWidths: [9720],
@@ -303,7 +338,7 @@ const doc = new Document({
         idTable,
 
         new Paragraph({
-          spacing: { before: 240, after: 160 },
+          spacing: { before: 240, after: 140 },
           children: [
             new TextRun({
               text: "Instruções: leia cada frase e marque com um X a opção que melhor descreve com que frequência isso acontece com você (ou com a criança/adolescente, no caso de resposta assistida) nas últimas duas semanas. Não existem respostas certas ou erradas.",
@@ -312,15 +347,21 @@ const doc = new Document({
           ],
         }),
 
-        ...domains.flatMap((d) => [domainHeading(d.title), domainTable(d.items), new Paragraph({ spacing: { after: 120 }, children: [] })]),
+        legendTable,
 
-        new Paragraph({ pageBreakBefore: true, spacing: { after: 60 }, children: [new TextRun({ text: "Apuração e interpretação", bold: true, size: 26, color: COLOR_PRIMARY })] }),
+        ...domains.flatMap((d, i) => [
+          domainHeading(d.title, i === 2),
+          domainTable(d.items),
+          new Paragraph({ spacing: { after: 120 }, children: [] }),
+        ]),
+
+        new Paragraph({ pageBreakBefore: true, keepNext: true, spacing: { after: 60 }, children: [new TextRun({ text: "Apuração e interpretação", bold: true, size: 26, color: COLOR_PRIMARY })] }),
 
         new Paragraph({ spacing: { before: 100, after: 160 }, children: [new TextRun({ text: "Some os valores marcados (0 a 3) em cada bloco e registre o resultado abaixo.", size: 20 })] }),
 
         scoringTable,
 
-        new Paragraph({ spacing: { before: 260, after: 100 }, children: [new TextRun({ text: "Faixas de referência (sugestivas)", bold: true, size: 22, color: COLOR_PRIMARY })] }),
+        new Paragraph({ keepNext: true, spacing: { before: 260, after: 100 }, children: [new TextRun({ text: "Faixas de referência (sugestivas)", bold: true, size: 22, color: COLOR_PRIMARY })] }),
         bullet("0–20: sinais de ansiedade pouco frequentes ou ausentes."),
         bullet("21–35: sinais de ansiedade leves a moderados — atenção clínica recomendada."),
         bullet("36–60: sinais de ansiedade significativos — investigação clínica aprofundada recomendada."),
@@ -336,7 +377,49 @@ const doc = new Document({
           ],
         }),
 
-        new Paragraph({ spacing: { before: 280, after: 100 }, children: [new TextRun({ text: "Observações clínicas", bold: true, size: 22, color: COLOR_PRIMARY })] }),
+        new Paragraph({
+          keepNext: true,
+          pageBreakBefore: true,
+          spacing: { before: 0, after: 100 },
+          children: [new TextRun({ text: "Fundamentação teórica", bold: true, size: 26, color: COLOR_PRIMARY })],
+        }),
+        new Paragraph({
+          spacing: { after: 160 },
+          children: [
+            new TextRun({
+              text: "A estrutura em quatro blocos — sintomas somáticos, preocupação excessiva, ansiedade social e ansiedade de separação — dialoga com o modelo cognitivo-comportamental da ansiedade, que descreve suas manifestações em componentes fisiológicos, cognitivos e comportamentais (Beck & Clark, 1997; Barlow, 2002), e com os critérios diagnósticos para transtornos de ansiedade na infância e adolescência descritos no DSM-5 (American Psychiatric Association, 2014). A organização dos blocos também se inspira, no plano conceitual, na estrutura fatorial de instrumentos consolidados de rastreio de ansiedade infantil, como o SCARED (Birmaher et al., 1997) — sem reproduzir seus itens originais, sua redação ou suas propriedades psicométricas.",
+              size: 19,
+            }),
+          ],
+        }),
+        new Paragraph({
+          spacing: { after: 220 },
+          children: [
+            new TextRun({
+              text: "Trata-se, portanto, de um instrumento de elaboração própria, construído a partir desses referenciais para fins de rastreio complementar e apoio à escuta clínica — e não de uma adaptação, tradução ou versão validada de qualquer escala existente.",
+              italics: true,
+              size: 18,
+              color: "6B6B6B",
+            }),
+          ],
+        }),
+
+        new Paragraph({
+          keepNext: true,
+          spacing: { before: 100, after: 120 },
+          children: [new TextRun({ text: "Referências", bold: true, size: 22, color: COLOR_PRIMARY })],
+        }),
+        reference("American Psychiatric Association. (2014). DSM-5: Manual diagnóstico e estatístico de transtornos mentais (5ª ed.). Porto Alegre: Artmed."),
+        reference("Barlow, D. H. (2002). Anxiety and Its Disorders: The Nature and Treatment of Anxiety and Panic (2nd ed.). New York: Guilford Press."),
+        reference("Beck, A. T., & Clark, D. A. (1997). An information processing model of anxiety: Automatic and strategic processes. Behaviour Research and Therapy, 35(1), 49–58."),
+        reference("Birmaher, B., Khetarpal, S., Brent, D., Cully, M., Balach, L., Kaufman, J., & Neer, S. M. (1997). The Screen for Child Anxiety Related Emotional Disorders (SCARED): Scale construction and psychometric characteristics. Journal of the American Academy of Child & Adolescent Psychiatry, 36(4), 545–553."),
+
+        new Paragraph({
+          keepNext: true,
+          pageBreakBefore: true,
+          spacing: { before: 0, after: 100 },
+          children: [new TextRun({ text: "Observações clínicas", bold: true, size: 22, color: COLOR_PRIMARY })],
+        }),
         observationsBox,
 
         signatureTable,
