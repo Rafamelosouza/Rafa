@@ -19,3 +19,41 @@
 .presentation .scene p{font-size:clamp(.84rem,1.8vh,1.02rem)}.presentation .scene{padding-top:4px;padding-bottom:6px}
 .presentation .feedback{padding:9px;margin-top:7px}.presentation .ghost-grid{margin:6px 0}
 }
+/* Apresentação compacta para telas de notebook com pouco espaço vertical. */
+@media (min-width:851px) and (min-height:480px){
+.app.presentation{height:100vh;height:100dvh;min-height:0;overflow:hidden;display:flex;flex-direction:column;padding:7px clamp(16px,2.2vw,32px) 58px}
+.presentation .topbar{flex:0 0 auto;padding-bottom:5px}.presentation .brand{font-size:.9rem}.presentation .dot{width:22px;height:22px}
+.presentation .progress{flex:0 0 4px;margin:5px 0}
+.presentation .scene{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:4px 0}
+.presentation .scene p{font-size:clamp(.76rem,1.75vh,1rem);line-height:1.22;margin-bottom:5px}
+.presentation .kicker{font-size:.62rem;margin-bottom:4px}.presentation h1{font-size:clamp(1.5rem,4.3vh,2.7rem);line-height:1;margin-bottom:5px}
+.presentation h2,.presentation .question{font-size:clamp(1.15rem,2.9vh,1.9rem);line-height:1.04;margin-bottom:5px}
+.presentation h3{font-size:.95rem;margin-bottom:4px}.presentation .lower{margin:4px 0}
+.presentation .feedback{padding:8px;margin-top:5px}.presentation .inner,.presentation .card{padding:clamp(7px,1.1vh,12px)}
+.presentation .grid2,.presentation .grid3{gap:6px}.presentation .grid3{grid-template-columns:repeat(4,minmax(0,1fr))}
+.presentation .grid3 .inner{padding:5px 4px;border-radius:10px}.presentation .grid3 .inner svg{width:34px;height:38px}
+.presentation .grid3 h3{font-size:clamp(.72rem,1.3vh,.88rem);margin:2px 0}.presentation .grid3 .small{font-size:.65rem}
+.presentation .ghost-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:5px 0}
+.presentation .ghost-card{padding:5px;border-radius:11px}.presentation .ghost-card svg{width:min(100%,58px);max-height:60px;margin:0 auto 2px}
+.presentation .options{gap:6px;margin-top:6px}.presentation .option{min-height:42px;padding:6px 9px;border-radius:9px;font-size:.86rem}
+.presentation .option b{min-width:26px;height:26px}.presentation .result{margin:3px 0;gap:6px;font-size:.75rem}.presentation .bar{height:8px}
+.presentation .statusbar{padding:4px 0}.presentation .stage-controls{flex-wrap:nowrap;gap:5px;padding:4px 12px}
+.presentation .stage-controls .actions{flex-wrap:nowrap;gap:4px}.presentation .stage-controls .btn{min-height:31px;padding:5px 7px;font-size:.7rem;white-space:nowrap}
+.presentation .stage-controls .pill{padding:5px 8px;font-size:.65rem}.presentation .timer{font-size:.82rem}
+.presentation .stage-list{max-height:none;overflow:visible;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+.presentation .stage-list button{padding:6px;font-size:.72rem}.presentation .overlay{padding:8px}
+.presentation .overlay .card{max-height:calc(100dvh - 20px);padding:10px}
+.presentation .scene{animation:sceneEnter .32s ease-out both}
+.presentation .ghost-card,.presentation .grid3 .inner{animation:cardEnter .36s ease-out both}
+.presentation .ghost-card:nth-child(2),.presentation .grid3 .inner:nth-child(2){animation-delay:.035s}
+.presentation .ghost-card:nth-child(3),.presentation .grid3 .inner:nth-child(3){animation-delay:.07s}
+.presentation .ghost-card:nth-child(4),.presentation .grid3 .inner:nth-child(4){animation-delay:.105s}
+}
+@keyframes sceneEnter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cardEnter{from{opacity:.65;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+@media (min-width:851px) and (min-height:480px) and (max-height:620px){
+.presentation .scene p{font-size:clamp(.7rem,1.5vh,.84rem)}
+.presentation .grid3 .inner svg{width:28px;height:31px}
+.presentation .ghost-grid{margin:3px 0}
+.presentation .stage-controls .btn{min-height:28px;padding:4px 6px;font-size:.65rem}
+}
