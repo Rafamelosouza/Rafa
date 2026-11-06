@@ -8,7 +8,7 @@
 .presentation .scene p{font-size:clamp(.9rem,1.9vh,1.2rem);line-height:1.35;margin-bottom:8px}.presentation .kicker{font-size:.7rem;margin-bottom:7px}
 .presentation h1{font-size:clamp(2rem,5.4vh,3.6rem);margin-bottom:8px}.presentation h2,.presentation .question{font-size:clamp(1.45rem,3.5vh,2.45rem);line-height:1.08;margin-bottom:8px}
 .presentation h3{font-size:1.12rem;margin-bottom:7px}.presentation .lower{margin:8px 0}.presentation .feedback{padding:12px;margin-top:10px}
-.presentation .inner,.presentation .card{padding:clamp(12px,1.7vh,20px)}.presentation .ghost-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0}
+.presentation .inner,.presentation .card{padding:clamp(10px,1.4vh,16px)}.presentation .grid3{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.presentation .grid3 .inner{padding:8px 6px;border-radius:12px}.presentation .grid3 .inner svg{width:44px;height:50px}.presentation .grid3 h3{font-size:clamp(.82rem,1.5vh,1rem);margin:3px 0}.presentation .grid3 .small{font-size:.72rem}.presentation .ghost-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0}
 .presentation .ghost-card{padding:8px 6px;border-radius:13px}.presentation .ghost-card svg{width:min(100%,76px);max-height:78px;margin-bottom:4px}
 .presentation .options{gap:8px;margin-top:10px}.presentation .option{min-height:54px;padding:10px 12px;border-radius:11px}
 .presentation .result{margin:5px 0;gap:8px;font-size:.86rem}.presentation .bar{height:10px}.presentation .statusbar{padding:6px 0}
