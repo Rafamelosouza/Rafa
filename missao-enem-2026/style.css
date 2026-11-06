@@ -24,7 +24,7 @@
 .app.presentation{height:100vh;height:100dvh;min-height:0;overflow:hidden;display:flex;flex-direction:column;padding:7px clamp(16px,2.2vw,32px) 58px}
 .presentation .topbar{flex:0 0 auto;padding-bottom:5px}.presentation .brand{font-size:.9rem}.presentation .dot{width:22px;height:22px}
 .presentation .progress{flex:0 0 4px;margin:5px 0}
-.presentation .scene{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:4px 0}
+.presentation .scene{width:100%;flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:4px 0}
 .presentation .scene p{font-size:clamp(.76rem,1.75vh,1rem);line-height:1.22;margin-bottom:5px}
 .presentation .kicker{font-size:.62rem;margin-bottom:4px}.presentation h1{font-size:clamp(1.5rem,4.3vh,2.7rem);line-height:1;margin-bottom:5px}
 .presentation h2,.presentation .question{font-size:clamp(1.15rem,2.9vh,1.9rem);line-height:1.04;margin-bottom:5px}
