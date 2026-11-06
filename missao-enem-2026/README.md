@@ -4,8 +4,8 @@ Jogo de participação coletiva para **sábado, 7 de novembro de 2026**, vésper
 
 ## O que está pronto no código
 
-- **22 telas** no modo apresentadora, com controle por mouse ou pelas setas do teclado.
-- Visual arcade original, cinco fantasmas e cinco poderes psicológicos.
+- **25 telas** no modo apresentadora, com controle por mouse ou pelas setas do teclado.
+- Visual arcade original, oito fantasmas coloridos e oito poderes psicológicos.
 - Abertura, emoções, labirinto, inventário com seis perguntas, botão de pausa, mochila invisível e despedida.
 - Modo **ENSAIO** que roda no navegador **sem conta, sem banco e sem internet** depois de carregado, com números **simulados e identificados como fictícios**.
 - Modo **AO VIVO**, com dois endereços: apresentadora e participantes. Envio anônimo, gráficos agregados e atualização a cada ~2,5 segundos, desde que o Supabase tenha sido configurado.
@@ -57,7 +57,7 @@ O GitHub hospeda arquivos, mas **não é um servidor de votos**. Para sincroniza
 | --- | --- | --- |
 | 00–05 min | Abertura | Mensagem principal, QR Code, combinados, participação voluntária |
 | 05–12 min | Emoções | Votação sobre como cada um chega, acolhimento sem exigência de calma |
-| 12–34 min | Labirinto | 5 fantasmas, 4 min por fantasma + transições, discussão em duplas ou equipes |
+| 12–34 min | Labirinto | 8 fantasmas, cerca de 2,5 min por fantasma + transições, discussão em duplas ou equipes |
 | 34–46 min | Inventário de forças | 6 perguntas subjetivas, sem acertos ou erros, 2 min por pergunta |
 | 46–52 min | Botão de pausa | Prática de atenção voluntária e três estratégias para situações difíceis |
 | 52–60 min | Mochila invisível | Votação e etiqueta de papel com três forças; fechamento |
@@ -112,3 +112,10 @@ Você **não precisa do Lovable** para usar a experiência quando GitHub Pages e
 > Uma prova avalia respostas. Não mede todo o caminho que trouxe você até aqui.
 
 **Elaborado por Rafaela Melo · Psicóloga · CRP 02/17-096.**
+
+
+### Atualização de cores e enquadramento no notebook
+
+O labirinto agora conta com oito cores: vermelho, azul, rosa, laranja, roxo, verde, amarelo e turquesa. No celular, a votação para escolher o primeiro monstro exibe apenas as cores. Para atualizar um projeto Supabase já existente, execute novamente o arquivo `supabase.sql` atualizado no SQL Editor. Ele amplia os limites de tela e permite as três novas enquetes.
+
+Na apresentação pelo notebook, textos, cartões, imagens e controles se ajustam à altura da janela para reduzir a rolagem. O modo tela cheia do navegador (F11) oferece mais espaço.
