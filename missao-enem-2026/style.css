@@ -57,3 +57,18 @@
 .presentation .ghost-grid{margin:3px 0}
 .presentation .stage-controls .btn{min-height:28px;padding:4px 6px;font-size:.65rem}
 }
+
+/* Momento de reflexão: animação leve, sem ocupar o espaço da apresentação. */
+.emotion-pulse{position:relative;display:grid;place-items:center;width:46px;height:46px;margin:0 auto 5px}
+.emotion-pulse::before,.emotion-pulse::after{content:"";position:absolute;inset:4px;border:1.5px solid #aebfff;border-radius:50%;animation:emotionHalo 2.8s ease-out infinite}
+.emotion-pulse::after{animation-delay:1.4s}
+.emotion-pulse span{position:relative;z-index:1;font-size:1.45rem;animation:emotionFloat 3s ease-in-out infinite}
+.emotion-options .option{animation:emotionChoice .34s ease-out both}
+.emotion-options .option:nth-child(2){animation-delay:.035s}.emotion-options .option:nth-child(3){animation-delay:.07s}.emotion-options .option:nth-child(4){animation-delay:.105s}
+.emotion-options .option:nth-child(5){animation-delay:.14s}.emotion-options .option:nth-child(6){animation-delay:.175s}.emotion-options .option:nth-child(7){animation-delay:.21s}.emotion-options .option:nth-child(8){animation-delay:.245s}
+.emotion-options .option.selected{box-shadow:0 0 0 2px #ffe17a,0 0 22px #ffe17a40}
+@keyframes emotionHalo{0%{transform:scale(.45);opacity:.8}100%{transform:scale(1.45);opacity:0}}
+@keyframes emotionFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes emotionChoice{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media (min-width:851px) and (min-height:480px){.presentation .emotion-pulse{width:34px;height:34px;margin:0 auto 1px}.presentation .emotion-pulse span{font-size:1.12rem}.presentation .emotion-reflection h2{font-size:clamp(1.18rem,2.4vh,1.65rem);margin-bottom:4px}.presentation .emotion-reflection p{margin-bottom:4px}.presentation .emotion-reflection .options{margin-top:4px;gap:4px}.presentation .emotion-reflection .option{min-height:34px;padding:4px 8px;font-size:.76rem}.presentation .emotion-reflection .option b{min-width:22px;height:22px}}
+@media (prefers-reduced-motion:reduce){.emotion-pulse::before,.emotion-pulse::after,.emotion-pulse span,.emotion-options .option{animation:none!important}}
