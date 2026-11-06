@@ -9,11 +9,14 @@ create table if not exists public.enem_rooms (
   id uuid primary key default gen_random_uuid(),
   code varchar(6) not null unique,
   host_hash text not null,
-  scene integer not null default 0 check (scene between 0 and 21),
+  scene integer not null default 0,
   active_poll text,
   poll_open boolean not null default false,
   created_at timestamptz not null default now()
 );
+alter table public.enem_rooms drop constraint if exists enem_rooms_scene_check;
+alter table public.enem_rooms add constraint enem_rooms_scene_check check (scene between 0 and 24);
+
 create index if not exists enem_rooms_created_idx on public.enem_rooms(created_at);
 
 create table if not exists public.enem_participants (
@@ -116,12 +119,12 @@ set search_path = pg_catalog,public
 as $$
 declare v_id uuid;
 begin
- if p_scene is null or p_scene not between 0 and 21 then
+ if p_scene is null or p_scene not between 0 and 24 then
   raise exception 'Tela inválida.';
  end if;
  if p_poll_id is not null and p_poll_id not in (
  'mood','order','ghost_red','ghost_blue','ghost_pink',
- 'ghost_orange','ghost_purple','inv1','inv2','inv3','inv4','inv5','inv6','bag'
+ 'ghost_orange','ghost_purple','ghost_green','ghost_yellow','ghost_turquoise','inv1','inv2','inv3','inv4','inv5','inv6','bag'
  ) then raise exception 'Enquete inválida.'; end if;
  select id into v_id from public.enem_rooms
  where code=upper(trim(p_code)) and host_hash=md5(coalesce(p_host_token,''));
