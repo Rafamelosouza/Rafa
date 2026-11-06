@@ -27,7 +27,7 @@ const inventario=[
 ];
 const polls={
  mood:{prompt:'Se sua preparação para o ENEM fosse uma emoção hoje, qual seria?',choices:['😰 Ansiedade','😴 Cansaço','🤩 Expectativa','😎 Confiança','🤯 Tudo junto','❤️ Esperança','Prefiro não responder'],talk:'Sentir emoções intensas é compreensível. Não precisamos eliminar a ansiedade para agir.'},
- order:{prompt:'Qual fantasma o grupo quer enfrentar primeiro?',choices:ghosts.map(g=>g.name+' — '+g.thought),talk:'O grupo ajuda a decidir por onde começaremos o labirinto.'},
+ order:{prompt:'Qual fantasma o grupo quer enfrentar primeiro?',choices:ghosts.map(g=>g.name),talk:'O grupo ajuda a decidir por onde começaremos o labirinto.'},
  bag:{prompt:'Qual força você deseja levar simbolicamente para domingo?',choices:['Persistência','Coragem','Aprendizagem','Flexibilidade','Organização','Autocompaixão','Esperança','Capacidade de recomeçar'],talk:'Escolher uma força não significa que você precise senti-la o tempo inteiro.'}
 };
 ghosts.forEach(g=>polls['ghost_'+g.id]={prompt:g.prompt,choices:g.choices,talk:g.debrief});
