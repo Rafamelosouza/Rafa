@@ -58,7 +58,8 @@ busy:false,lastSignature:'',pollInterval:null
 };
 if(!s.partToken){s.partToken=genToken();localStorage.setItem('enem_part_token',s.partToken)}
 let audioContext=null;
-function soundEffect(kind='step'){if(!s.sound)return;try{const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;audioContext=audioContext||new Ctx();if(audioContext.state==='suspended')audioContext.resume();const now=audioContext.currentTime;const osc=audioContext.createOscillator(),gain=audioContext.createGain();const tones={step:[440,554],unlock:[660,880],vote:[520,740],select:[500,600]};const pair=tones[kind]||tones.step;osc.type='sine';osc.frequency.setValueAtTime(pair[0],now);osc.frequency.exponentialRampToValueAtTime(pair[1],now+.12);gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.035,now+.025);gain.gain.exponentialRampToValueAtTime(.0001,now+.2);osc.connect(gain);gain.connect(audioContext.destination);osc.start(now);osc.stop(now+.21)}catch(e){}}
+function prepareAudio(){if(!s.sound)return;try{const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;audioContext=audioContext||new Ctx();if(audioContext.state==='suspended')audioContext.resume()}catch(e){}}
+function soundEffect(kind='step'){if(!s.sound)return;try{prepareAudio();if(!audioContext)return;const now=audioContext.currentTime;const osc=audioContext.createOscillator(),gain=audioContext.createGain();const tones={step:[440,554],unlock:[660,880],vote:[520,740],select:[500,600]};const pair=tones[kind]||tones.step;osc.type='sine';osc.frequency.setValueAtTime(pair[0],now);osc.frequency.exponentialRampToValueAtTime(pair[1],now+.12);gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.035,now+.025);gain.gain.exponentialRampToValueAtTime(.0001,now+.2);osc.connect(gain);gain.connect(audioContext.destination);osc.start(now);osc.stop(now+.21)}catch(e){}}
 function url(mode,code){const p=new URLSearchParams({modo:mode});if(code)p.set('codigo',code);return location.origin+pathname+'?'+p.toString()}
 function nav(mode){location.href=url(mode)}
 function timeText(){if(!s.startedAt)return '60:00';const secs=Math.max(0,3600-Math.floor((Date.now()-s.startedAt)/1000));return String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0')}
@@ -136,6 +137,7 @@ document.addEventListener('click',async e=>{const el=e.target.closest('[data-act
 if(el.hasAttribute('data-scene')){s.showAdmin=false;await setScene(Number(el.dataset.scene));return}
 if(el.hasAttribute('data-vote')){await vote(Number(el.dataset.vote));return}
 const a=el.dataset.action;
+if(s.sound)prepareAudio();
 try{
 if(a==='demo')tryDemo();
 else if(a==='newRoom')await newRoom();
